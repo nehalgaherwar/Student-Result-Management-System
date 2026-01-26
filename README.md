@@ -28,3 +28,33 @@ student-result-management/
 │── README.md                                                                                                                                
 
 ----
+
+
+---
+
+## 📸 How It Works
+1. Enter a roll number (e.g. 101, 102, 103)
+2. Click **Check Result**
+3. Student result will be displayed instantly
+
+---
+
+## 🎯 Learning Outcome
+- DOM manipulation
+- JavaScript objects
+- Conditional logic
+- Basic UI styling
+
+---
+
+## 📌 Future Improvements
+- Add backend & database
+- Allow admin to add students
+- Export result as PDF
+
+---
+
+## 👨‍💻 Author
+**Nehal Gaherwar**
+
+Happy Coding 🚀
