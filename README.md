@@ -2,6 +2,7 @@
 
 A simple frontend project built using **HTML, CSS, and JavaScript** that allows users to check student results using a roll number.
 
+project live at :  https://nehalgaherwar.github.io/Student-Result-Management-System/
 ---
 
 ## 🚀 Features
