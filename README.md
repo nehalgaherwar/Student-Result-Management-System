@@ -1,23 +1,29 @@
 # 🎓 Student Result Management System
 
-A simple frontend project built using **HTML, CSS, and JavaScript** that allows users to check student results using a roll number.
+A simple and interactive **Student Result Management System** built using **HTML, CSS, and JavaScript**.  
+This project allows students to check their academic results by entering their **name and roll number**.
 
-project live at :  https://nehalgaherwar.github.io/Student-Result-Management-System/
 ---
 
 ## 🚀 Features
-- Enter roll number to check result
-- Displays student name, marks, grade, and pass/fail status
-- Error message for invalid roll number
-- Clean and responsive UI
-- Beginner-friendly JavaScript logic
+- Enter **Student Name** and **Roll Number**
+- Displays marks for **6 subjects**:
+  - IT
+  - ENG-Math
+  - CAD
+  - Web-tech
+  - Python
+  - BEDE
+- Automatic **grade calculation** based on marks
+- Supports **60 students** (auto-generated data)
+- Clean, responsive, and modern UI
 
 ---
 
 ## 🛠 Tech Stack
-- HTML
-- CSS
-- JavaScript
+- **HTML** – Structure  
+- **CSS** – Styling & layout  
+- **JavaScript** – Logic, data handling, and DOM manipulation  
 
 ---
 
@@ -37,6 +43,8 @@ student-result-management/
 1. Enter a roll number (e.g. 101, 102, 103)
 2. Click **Check Result**
 3. Student result will be displayed instantly
+
+<img width="575" height="718" alt="Screenshot 2026-01-26 184214" src="https://github.com/user-attachments/assets/d9747e3f-4325-4ebf-8868-dbe1a5ec4216" />
 
 ---
 
