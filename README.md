@@ -21,3 +21,10 @@ A simple frontend project built using **HTML, CSS, and JavaScript** that allows 
 ---
 
 ## 📁 Project Structure
+student-result-management/                                                                                                    
+│── index.html                                                                                                                                                    
+│── style.css                                                                                                        
+│── script.js                                                                                                                                  
+│── README.md                                                                                                                                
+
+----
