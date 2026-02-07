@@ -2,53 +2,108 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 body {
     height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .container {
-    background: white;
+    background: #ffffff;
     padding: 25px;
-    width: 320px;
-    border-radius: 10px;
+    width: 380px;
+    border-radius: 15px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    animation: slideIn 0.8s ease;
 }
 
-.container h1 {
-    margin-bottom: 20px;
+.college h2 {
+    color: #2c5364;
+    font-size: 18px;
+}
+
+.college p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+h1 {
+    margin: 15px 0;
+    color: #222;
 }
 
 input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
+    padding: 11px;
+    margin: 10px 0;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    outline: none;
+}
+
+input:focus {
+    border-color: #2c5364;
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    background: #667eea;
+    padding: 12px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #5a67d8;
+    transform: scale(1.05);
+    opacity: 0.95;
 }
 
 .result-box {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 15px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    margin-top: 12px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #2c5364;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
