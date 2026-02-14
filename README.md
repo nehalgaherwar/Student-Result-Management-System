@@ -16,6 +16,7 @@ project live at :-  https://nehalgaherwar.github.io/Student-Result-Management-Sy
   - Web-tech
   - Python
   - BEDE
+  - c++
 - Automatic **grade calculation** based on marks
 - Supports **60 students** (auto-generated data)
 - Clean, responsive, and modern UI
