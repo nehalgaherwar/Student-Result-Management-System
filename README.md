@@ -3,8 +3,8 @@
 A simple and interactive **Student Result Management System** built using **HTML, CSS, and JavaScript**.  
 This project allows students to check their academic results by entering their **name and roll number**.
 
-project live at :-  https://nehalgaherwar.github.io/Student-Result-Management-System/
-
+project live at :-  https://nehalgaherwar.github.io/Student-Result-Management-System/                                                                                                
+Ramdom result ,play with friends-
 ---
 
 ## 🚀 Features
