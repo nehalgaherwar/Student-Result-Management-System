@@ -17,6 +17,7 @@ Ramdom result ,play with friends-
   - Python
   - BEDE
   - c++
+  - new feature coming soons,..............                                                              
 - Automatic **grade calculation** based on marks
 - Supports **60 students** (auto-generated data)
 - Clean, responsive, and modern UI
