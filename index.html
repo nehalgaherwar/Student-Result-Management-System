@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IIT Dolkpur | Student Result System</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IIT Dolkpur | Result Portal</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <div class="container">
-    <div class="college">
-        <h2>🏫 Indian Institute of Technology, Dolkpur</h2>
-        <p>(IIT Dolkpur)</p>
-    </div>
 
-    <h1>Student Result Management System</h1>
+<div class="college">
 
-    <input type="text" id="nameInput" placeholder="Enter Student Name">
-    <input type="number" id="rollInput" placeholder="Enter Roll Number (101-160)">
-    
-    <button onclick="checkResult()">🔥 Check Result</button>
+<h2>🏫 Indian Institute of Technology, Dolkpur</h2>
+<p>Official Student Result Portal</p>
 
-    <div id="result" class="result-box"></div>
+</div>
+
+<h1>Student Result System</h1>
+
+<input type="text" id="nameInput" placeholder="Enter Student Name">
+
+<input type="number" id="rollInput" placeholder="Roll Number (101-160)">
+
+<select id="semester">
+
+<option value="sem1">Semester 1</option>
+<option value="sem2">Semester 2</option>
+
+</select>
+
+<button onclick="checkResult()">Check Result</button>
+
+<div id="result"></div>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
