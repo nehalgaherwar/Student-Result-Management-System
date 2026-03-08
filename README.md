@@ -17,15 +17,15 @@ https://nehalgaherwar.github.io/Student-Result-Management-System/
 
 # 🚀 Features
 
-✔ Enter **Student Name & Roll Number**
-✔ Select **Semester (Sem 1 / Sem 2)**
-✔ Dynamic **subject-wise marks display**
-✔ Automatic **grade calculation**
-✔ **Total marks & percentage calculation**
-✔ **Pass / Fail status**
-✔ **Random student result generation (60 students)**
-✔ Clean **modern UI with responsive layout**
-✔ Instant result display using **JavaScript DOM manipulation**
+✔ Enter **Student Name & Roll Number**                            
+✔ Select **Semester (Sem 1 / Sem 2)**                  
+✔ Dynamic **subject-wise marks display**                                       
+✔ Automatic **grade calculation**                            
+✔ **Total marks & percentage calculation**                        
+✔ **Pass / Fail status**                             
+✔ **Random student result generation (60 students)**                   
+✔ Clean **modern UI with responsive layout**                       
+✔ Instant result display using **JavaScript DOM manipulation**                 
 
 ---
 
