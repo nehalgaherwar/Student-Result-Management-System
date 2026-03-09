@@ -11,7 +11,8 @@ This project simulates a **college result portal** where students can check thei
 The system generates **random results for demonstration**, making it fun to test with friends while learning frontend development concepts.
 
 🌐 **Live Demo:**
-https://nehalgaherwar.github.io/Student-Result-Management-System/
+https://nehalgaherwar.github.io/Student-Result-Management-System/                   
+learn and fun with friends......... 
 
 ---
 
