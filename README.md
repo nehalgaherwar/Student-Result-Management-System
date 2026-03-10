@@ -94,10 +94,10 @@ Student-Result-Management-System
 
 # ⚙️ How It Works
 
-1️⃣ Enter **Student Name**
-2️⃣ Enter **Roll Number (101 – 160)**
-3️⃣ Select **Semester**
-4️⃣ Click **Check Result**
+1️⃣ Enter **Student Name**                                            
+2️⃣ Enter **Roll Number (101 – 160)**                                       
+3️⃣ Select **Semester**                                            
+4️⃣ Click **Check Result**                                      
 
 The system will instantly generate and display the student's **marks, grades, percentage, and result status**.
 
