@@ -15,6 +15,39 @@ https://nehalgaherwar.github.io/Student-Result-Management-System/
 learn and fun with friends......... 
 
 ---
+## 🚀 How to contribute 
+1.**Star** this repository 
+2. **Fork** this repository.
+3. **Clone** your fork.
+
+```bash
+git clone https://github.com/your-username/repository-name.git
+cd repository-name
+```
+
+4. **Create a new branch.**
+
+```bash
+git checkout -b feature/your-feature-name
+```
+
+5. **Make your changes.**
+
+6. **Commit your changes.**
+
+```bash
+git add .
+git commit -m "feat: Add your feature"
+```
+
+7. **Push your branch.**
+
+```bash
+git push origin feature/your-feature-name
+```
+
+8. **Create a Pull Request** to the `main` branch.
+            **Add Img in the pr**
 
 # 🚀 Features
 
