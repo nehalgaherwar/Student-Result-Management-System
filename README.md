@@ -16,9 +16,9 @@ learn and fun with friends.........
 
 ---
 ## 🚀 How to contribute 
-1.**Star** this repository 
-2. **Fork** this repository.
-3. **Clone** your fork.
+1.**Star** this repository                                  
+2. **Fork** this repository.                                   
+3. **Clone** your fork.                     
 
 ```bash
 git clone https://github.com/your-username/repository-name.git
