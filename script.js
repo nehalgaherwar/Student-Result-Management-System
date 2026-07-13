@@ -1,12 +1,11 @@
-// =======================================
+// ===============================
 // Student Result Management System
-// Enhanced Version
-// =======================================
+// Version 2.0
+// ===============================
 
-// Subjects
+// ---------- Subjects ----------
 
 const semesters = {
-
     sem1: [
         "IT",
         "ENG-Math",
@@ -23,58 +22,43 @@ const semesters = {
         "CA",
         "EM"
     ]
-
 };
 
-// Total Students
-
-const studentCount = 60;
-
-// Student Database
+// ---------- Student Database ----------
 
 const students = {};
+const TOTAL_STUDENTS = 60;
 
-// Generate Random Marks (35-100)
+// ---------- Random Marks ----------
 
 function randomMarks() {
-
     return Math.floor(Math.random() * 66) + 35;
-
 }
 
-// Generate Student Data
+// ---------- Create Students ----------
 
 function generateStudents() {
 
-    for (let i = 1; i <= studentCount; i++) {
+    for (let i = 1; i <= TOTAL_STUDENTS; i++) {
 
         const roll = 100 + i;
 
-        const sem1Marks = {};
-        const sem2Marks = {};
+        let sem1 = {};
+        let sem2 = {};
 
         semesters.sem1.forEach(subject => {
-
-            sem1Marks[subject] = randomMarks();
-
+            sem1[subject] = randomMarks();
         });
 
         semesters.sem2.forEach(subject => {
-
-            sem2Marks[subject] = randomMarks();
-
+            sem2[subject] = randomMarks();
         });
 
         students[roll] = {
-
-            name: `Student ${i}`,
-
             roll,
-
-            sem1: sem1Marks,
-
-            sem2: sem2Marks
-
+            name: `Student ${i}`,
+            sem1,
+            sem2
         };
 
     }
@@ -83,9 +67,7 @@ function generateStudents() {
 
 generateStudents();
 
-// ================================
-// Grade Functions
-// ================================
+// ---------- Grade ----------
 
 function getGrade(mark) {
 
@@ -124,209 +106,40 @@ function getGradeClass(grade) {
 
 }
 
-// Overall Grade
+function overallGrade(percentage){
 
-function getOverallGrade(percentage) {
+    if(percentage>=90) return "A+";
 
-    if (percentage >= 90) return "A+";
+    if(percentage>=80) return "A";
 
-    if (percentage >= 80) return "A";
+    if(percentage>=70) return "B";
 
-    if (percentage >= 70) return "B";
-
-    if (percentage >= 60) return "C";
+    if(percentage>=60) return "C";
 
     return "F";
 
 }
 
-// CGPA
+function calculateCGPA(percentage){
 
-function calculateCGPA(percentage) {
-
-    return (percentage / 9.5).toFixed(2);
+    return (percentage/9.5).toFixed(2);
 
 }
 
-// ==================================
-// Loader
-// ==================================
+// ---------- Loader ----------
 
-function showLoader() {
+function showLoader(){
 
     document.getElementById("loader").classList.remove("hidden");
 
 }
 
-function hideLoader() {
+function hideLoader(){
 
     document.getElementById("loader").classList.add("hidden");
 
-}// =======================================
-// Student Result Management System
-// Enhanced Version
-// =======================================
-
-// Subjects
-
-const semesters = {
-
-    sem1: [
-        "IT",
-        "ENG-Math",
-        "CAD",
-        "Web-Tech",
-        "Python",
-        "BEDE"
-    ],
-
-    sem2: [
-        "C++",
-        "DBMS",
-        "CN",
-        "CA",
-        "EM"
-    ]
-
-};
-
-// Total Students
-
-const studentCount = 60;
-
-// Student Database
-
-const students = {};
-
-// Generate Random Marks (35-100)
-
-function randomMarks() {
-
-    return Math.floor(Math.random() * 66) + 35;
-
 }
-
-// Generate Student Data
-
-function generateStudents() {
-
-    for (let i = 1; i <= studentCount; i++) {
-
-        const roll = 100 + i;
-
-        const sem1Marks = {};
-        const sem2Marks = {};
-
-        semesters.sem1.forEach(subject => {
-
-            sem1Marks[subject] = randomMarks();
-
-        });
-
-        semesters.sem2.forEach(subject => {
-
-            sem2Marks[subject] = randomMarks();
-
-        });
-
-        students[roll] = {
-
-            name: `Student ${i}`,
-
-            roll,
-
-            sem1: sem1Marks,
-
-            sem2: sem2Marks
-
-        };
-
-    }
-
-}
-
-generateStudents();
-
-// ================================
-// Grade Functions
-// ================================
-
-function getGrade(mark) {
-
-    if (mark >= 90) return "A+";
-
-    if (mark >= 80) return "A";
-
-    if (mark >= 70) return "B";
-
-    if (mark >= 60) return "C";
-
-    return "F";
-
-}
-
-function getGradeClass(grade) {
-
-    switch (grade) {
-
-        case "A+":
-            return "aplus";
-
-        case "A":
-            return "a";
-
-        case "B":
-            return "b";
-
-        case "C":
-            return "c";
-
-        default:
-            return "f";
-
-    }
-
-}
-
-// Overall Grade
-
-function getOverallGrade(percentage) {
-
-    if (percentage >= 90) return "A+";
-
-    if (percentage >= 80) return "A";
-
-    if (percentage >= 70) return "B";
-
-    if (percentage >= 60) return "C";
-
-    return "F";
-
-}
-
-// CGPA
-
-function calculateCGPA(percentage) {
-
-    return (percentage / 9.5).toFixed(2);
-
-}
-
-// ==================================
-// Loader
-// ==================================
-
-function showLoader() {
-
-    document.getElementById("loader").classList.remove("hidden");
-
-}
-
-function hideLoader() {
-
-    document.getElementById("loader").classList.add("hidden");
-
-}function checkResult() {
+function checkResult() {
 
     const name = document.getElementById("nameInput").value.trim();
     const roll = document.getElementById("rollInput").value.trim();
@@ -334,40 +147,34 @@ function hideLoader() {
 
     const resultDiv = document.getElementById("result");
 
-    // Validation
-
     if (name === "") {
 
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">❌ Please enter your name.</h3>
+                <h3 style="color:red;">Please enter your name.</h3>
             </div>
         `;
         return;
-
     }
 
     if (roll === "") {
 
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">❌ Please enter your roll number.</h3>
+                <h3 style="color:red;">Please enter your roll number.</h3>
             </div>
         `;
         return;
-
     }
 
-    if (roll < 101 || roll > 160 || !students[roll]) {
+    if (!students[roll]) {
 
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">❌ Invalid Roll Number</h3>
-                <p>Roll Number must be between <b>101 - 160</b>.</p>
+                <h3 style="color:red;">Invalid Roll Number</h3>
             </div>
         `;
         return;
-
     }
 
     showLoader();
@@ -385,9 +192,7 @@ function hideLoader() {
         const marks = student[semester];
 
         let total = 0;
-
-        let failedSubjects = 0;
-
+        let failed = false;
         let rows = "";
 
         subjects.forEach(subject => {
@@ -396,30 +201,18 @@ function hideLoader() {
 
             const grade = getGrade(mark);
 
+            if (mark < 40) failed = true;
+
             total += mark;
 
-            if (mark < 40) {
-
-                failedSubjects++;
-
-            }
-
             rows += `
-
                 <tr>
-
                     <td>${subject}</td>
-
                     <td>${mark}</td>
-
                     <td>
-                        <span class="grade ${getGradeClass(grade)}">
-                            ${grade}
-                        </span>
+                        <span class="grade ${getGradeClass(grade)}">${grade}</span>
                     </td>
-
                 </tr>
-
             `;
 
         });
@@ -428,154 +221,100 @@ function hideLoader() {
 
         const cgpa = calculateCGPA(percentage);
 
-        const overallGrade = getOverallGrade(percentage);
+        const grade = overallGrade(percentage);
 
-        const status = failedSubjects === 0 ? "PASS" : "FAIL";
+        const status = failed ? "FAIL" : "PASS";
 
-        const statusClass = failedSubjects === 0 ? "pass" : "fail";
-
-        let badge = "";
-
-        if (percentage >= 95) {
-
-            badge = `<span class="status topper">🏆 College Topper</span>`;
-
-        } else if (percentage >= 85) {
-
-            badge = `<span class="status distinction">⭐ Distinction</span>`;
-
-        }
+        const statusClass = failed ? "fail" : "pass";
 
         resultDiv.innerHTML = `
+        <div class="result-card">
 
-<div class="result-card">
+            <div class="student-header">
 
-<div class="student-header">
+                <div class="avatar">${name.charAt(0).toUpperCase()}</div>
 
-<div class="avatar">
+                <div class="student-info">
 
-${name.charAt(0).toUpperCase()}
+                    <h2>${name}</h2>
 
-</div>
+                    <p>Roll Number : ${roll}</p>
 
-<div class="student-info">
+                    <p>${semester.toUpperCase()}</p>
 
-<h2>${name}</h2>
+                </div>
 
-<p><strong>Roll Number:</strong> ${roll}</p>
+            </div>
 
-<p><strong>Semester:</strong> ${semester.toUpperCase()}</p>
+            <div class="summary">
 
-<p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                <div class="summary-box">
 
-</div>
+                    <h4>Total</h4>
 
-</div>
+                    <span>${total}</span>
 
-<div class="summary">
+                </div>
 
-<div class="summary-box">
+                <div class="summary-box">
 
-<h4>Total Marks</h4>
+                    <h4>Percentage</h4>
 
-<span>${total}</span>
+                    <span>${percentage}%</span>
 
-</div>
+                </div>
 
-<div class="summary-box">
+                <div class="summary-box">
 
-<h4>Percentage</h4>
+                    <h4>CGPA</h4>
 
-<span>${percentage}%</span>
+                    <span>${cgpa}</span>
 
-</div>
+                </div>
 
-<div class="summary-box">
+                <div class="summary-box">
 
-<h4>CGPA</h4>
+                    <h4>Grade</h4>
 
-<span>${cgpa}</span>
+                    <span>${grade}</span>
 
-</div>
+                </div>
 
-<div class="summary-box">
+            </div>
 
-<h4>Grade</h4>
+            <table class="result-table">
 
-<span>${overallGrade}</span>
+                <thead>
 
-</div>
+                    <tr>
 
-</div>
+                        <th>Subject</th>
 
-<table class="result-table">
+                        <th>Marks</th>
 
-<thead>
+                        <th>Grade</th>
 
-<tr>
+                    </tr>
 
-<th>Subject</th>
+                </thead>
 
-<th>Marks</th>
+                <tbody>
 
-<th>Grade</th>
+                    ${rows}
 
-</tr>
+                </tbody>
 
-</thead>
+            </table>
 
-<tbody>
+            <div style="padding:25px;text-align:center">
 
-${rows}
+                <span class="status ${statusClass}">${status}</span>
 
-</tbody>
+            </div>
 
-</table>
-
-<div style="padding:25px;text-align:center;">
-
-<h3>Final Result</h3>
-
-<br>
-
-<span class="status ${statusClass}">
-
-${status}
-
-</span>
-
-<br><br>
-
-${badge}
-
-</div>
-
-<div class="action-buttons">
-
-<button class="print-btn" onclick="window.print()">
-
-🖨 Print Result
-
-</button>
-
-<button class="download-btn" onclick="downloadResult()">
-
-📄 Download
-
-</button>
-
-<button class="copy-btn" onclick="copyResult()">
-
-📋 Copy
-
-</button>
-
-</div>
-
-</div>
-
+        </div>
         `;
 
-    }, 1200);
+    }, 800);
 
 }
