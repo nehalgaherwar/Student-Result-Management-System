@@ -1,107 +1,516 @@
+// =======================================
+// Student Result Management System
+// Enhanced Version
+// =======================================
+
+// Subjects
+
 const semesters = {
 
-sem1:["IT","ENG-Math","CAD","Web-Tech","Python","BEDE"],
+    sem1: [
+        "IT",
+        "ENG-Math",
+        "CAD",
+        "Web-Tech",
+        "Python",
+        "BEDE"
+    ],
 
-sem2:["C++","DBMS","CN","CA","EM"]
+    sem2: [
+        "C++",
+        "DBMS",
+        "CN",
+        "CA",
+        "EM"
+    ]
 
 };
+
+// Total Students
 
 const studentCount = 60;
 
+// Student Database
+
 const students = {};
 
-function generateStudents(){
+// Generate Random Marks (35-100)
 
-for(let i=1;i<=studentCount;i++){
+function randomMarks() {
 
-const roll=100+i;
+    return Math.floor(Math.random() * 66) + 35;
 
-let sem1Marks={};
-let sem2Marks={};
+}
 
-semesters.sem1.forEach(sub=>{
+// Generate Student Data
 
-sem1Marks[sub]=Math.floor(Math.random()*41)+60;
+function generateStudents() {
 
-});
+    for (let i = 1; i <= studentCount; i++) {
 
-semesters.sem2.forEach(sub=>{
+        const roll = 100 + i;
 
-sem2Marks[sub]=Math.floor(Math.random()*41)+60;
+        const sem1Marks = {};
+        const sem2Marks = {};
 
-});
+        semesters.sem1.forEach(subject => {
 
-students[roll]={
+            sem1Marks[subject] = randomMarks();
 
-name:"Student "+i,
+        });
 
-sem1:sem1Marks,
+        semesters.sem2.forEach(subject => {
 
-sem2:sem2Marks
+            sem2Marks[subject] = randomMarks();
+
+        });
+
+        students[roll] = {
+
+            name: `Student ${i}`,
+
+            roll,
+
+            sem1: sem1Marks,
+
+            sem2: sem2Marks
+
+        };
+
+    }
+
+}
+
+generateStudents();
+
+// ================================
+// Grade Functions
+// ================================
+
+function getGrade(mark) {
+
+    if (mark >= 90) return "A+";
+
+    if (mark >= 80) return "A";
+
+    if (mark >= 70) return "B";
+
+    if (mark >= 60) return "C";
+
+    return "F";
+
+}
+
+function getGradeClass(grade) {
+
+    switch (grade) {
+
+        case "A+":
+            return "aplus";
+
+        case "A":
+            return "a";
+
+        case "B":
+            return "b";
+
+        case "C":
+            return "c";
+
+        default:
+            return "f";
+
+    }
+
+}
+
+// Overall Grade
+
+function getOverallGrade(percentage) {
+
+    if (percentage >= 90) return "A+";
+
+    if (percentage >= 80) return "A";
+
+    if (percentage >= 70) return "B";
+
+    if (percentage >= 60) return "C";
+
+    return "F";
+
+}
+
+// CGPA
+
+function calculateCGPA(percentage) {
+
+    return (percentage / 9.5).toFixed(2);
+
+}
+
+// ==================================
+// Loader
+// ==================================
+
+function showLoader() {
+
+    document.getElementById("loader").classList.remove("hidden");
+
+}
+
+function hideLoader() {
+
+    document.getElementById("loader").classList.add("hidden");
+
+}// =======================================
+// Student Result Management System
+// Enhanced Version
+// =======================================
+
+// Subjects
+
+const semesters = {
+
+    sem1: [
+        "IT",
+        "ENG-Math",
+        "CAD",
+        "Web-Tech",
+        "Python",
+        "BEDE"
+    ],
+
+    sem2: [
+        "C++",
+        "DBMS",
+        "CN",
+        "CA",
+        "EM"
+    ]
 
 };
 
-}
+// Total Students
+
+const studentCount = 60;
+
+// Student Database
+
+const students = {};
+
+// Generate Random Marks (35-100)
+
+function randomMarks() {
+
+    return Math.floor(Math.random() * 66) + 35;
 
 }
 
-function getGrade(mark){
+// Generate Student Data
 
-if(mark>=90) return "A+";
+function generateStudents() {
 
-if(mark>=80) return "A";
+    for (let i = 1; i <= studentCount; i++) {
 
-if(mark>=70) return "B";
+        const roll = 100 + i;
 
-if(mark>=60) return "C";
+        const sem1Marks = {};
+        const sem2Marks = {};
 
-return "F";
+        semesters.sem1.forEach(subject => {
+
+            sem1Marks[subject] = randomMarks();
+
+        });
+
+        semesters.sem2.forEach(subject => {
+
+            sem2Marks[subject] = randomMarks();
+
+        });
+
+        students[roll] = {
+
+            name: `Student ${i}`,
+
+            roll,
+
+            sem1: sem1Marks,
+
+            sem2: sem2Marks
+
+        };
+
+    }
 
 }
 
-function checkResult(){
+generateStudents();
 
-const name=document.getElementById("nameInput").value;
+// ================================
+// Grade Functions
+// ================================
 
-const roll=document.getElementById("rollInput").value;
+function getGrade(mark) {
 
-const semester=document.getElementById("semester").value;
+    if (mark >= 90) return "A+";
 
-const resultDiv=document.getElementById("result");
+    if (mark >= 80) return "A";
 
-if(name===""||roll===""){
+    if (mark >= 70) return "B";
 
-resultDiv.innerHTML="<p style='color:red'>Enter Name & Roll</p>";
+    if (mark >= 60) return "C";
 
-return;
-
-}
-
-if(!students[roll]){
-
-resultDiv.innerHTML="<p style='color:red'>Invalid Roll</p>";
-
-return;
+    return "F";
 
 }
 
-const student=students[roll];
+function getGradeClass(grade) {
 
-const subjects=semesters[semester];
+    switch (grade) {
 
-const marks=student[semester];
+        case "A+":
+            return "aplus";
 
-let total=0;
+        case "A":
+            return "a";
 
-let output=`<h3>Result Card</h3>
+        case "B":
+            return "b";
 
-<p><b>Name:</b> ${name}</p>
+        case "C":
+            return "c";
 
-<p><b>Roll:</b> ${roll}</p>
+        default:
+            return "f";
 
-<p><b>Semester:</b> ${semester.toUpperCase()}</p>
+    }
 
-<table>
+}
+
+// Overall Grade
+
+function getOverallGrade(percentage) {
+
+    if (percentage >= 90) return "A+";
+
+    if (percentage >= 80) return "A";
+
+    if (percentage >= 70) return "B";
+
+    if (percentage >= 60) return "C";
+
+    return "F";
+
+}
+
+// CGPA
+
+function calculateCGPA(percentage) {
+
+    return (percentage / 9.5).toFixed(2);
+
+}
+
+// ==================================
+// Loader
+// ==================================
+
+function showLoader() {
+
+    document.getElementById("loader").classList.remove("hidden");
+
+}
+
+function hideLoader() {
+
+    document.getElementById("loader").classList.add("hidden");
+
+}function checkResult() {
+
+    const name = document.getElementById("nameInput").value.trim();
+    const roll = document.getElementById("rollInput").value.trim();
+    const semester = document.getElementById("semester").value;
+
+    const resultDiv = document.getElementById("result");
+
+    // Validation
+
+    if (name === "") {
+
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red;">❌ Please enter your name.</h3>
+            </div>
+        `;
+        return;
+
+    }
+
+    if (roll === "") {
+
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red;">❌ Please enter your roll number.</h3>
+            </div>
+        `;
+        return;
+
+    }
+
+    if (roll < 101 || roll > 160 || !students[roll]) {
+
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red;">❌ Invalid Roll Number</h3>
+                <p>Roll Number must be between <b>101 - 160</b>.</p>
+            </div>
+        `;
+        return;
+
+    }
+
+    showLoader();
+
+    resultDiv.innerHTML = "";
+
+    setTimeout(() => {
+
+        hideLoader();
+
+        const student = students[roll];
+
+        const subjects = semesters[semester];
+
+        const marks = student[semester];
+
+        let total = 0;
+
+        let failedSubjects = 0;
+
+        let rows = "";
+
+        subjects.forEach(subject => {
+
+            const mark = marks[subject];
+
+            const grade = getGrade(mark);
+
+            total += mark;
+
+            if (mark < 40) {
+
+                failedSubjects++;
+
+            }
+
+            rows += `
+
+                <tr>
+
+                    <td>${subject}</td>
+
+                    <td>${mark}</td>
+
+                    <td>
+                        <span class="grade ${getGradeClass(grade)}">
+                            ${grade}
+                        </span>
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+        const percentage = (total / subjects.length).toFixed(2);
+
+        const cgpa = calculateCGPA(percentage);
+
+        const overallGrade = getOverallGrade(percentage);
+
+        const status = failedSubjects === 0 ? "PASS" : "FAIL";
+
+        const statusClass = failedSubjects === 0 ? "pass" : "fail";
+
+        let badge = "";
+
+        if (percentage >= 95) {
+
+            badge = `<span class="status topper">🏆 College Topper</span>`;
+
+        } else if (percentage >= 85) {
+
+            badge = `<span class="status distinction">⭐ Distinction</span>`;
+
+        }
+
+        resultDiv.innerHTML = `
+
+<div class="result-card">
+
+<div class="student-header">
+
+<div class="avatar">
+
+${name.charAt(0).toUpperCase()}
+
+</div>
+
+<div class="student-info">
+
+<h2>${name}</h2>
+
+<p><strong>Roll Number:</strong> ${roll}</p>
+
+<p><strong>Semester:</strong> ${semester.toUpperCase()}</p>
+
+<p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="summary-box">
+
+<h4>Total Marks</h4>
+
+<span>${total}</span>
+
+</div>
+
+<div class="summary-box">
+
+<h4>Percentage</h4>
+
+<span>${percentage}%</span>
+
+</div>
+
+<div class="summary-box">
+
+<h4>CGPA</h4>
+
+<span>${cgpa}</span>
+
+</div>
+
+<div class="summary-box">
+
+<h4>Grade</h4>
+
+<span>${overallGrade}</span>
+
+</div>
+
+</div>
+
+<table class="result-table">
+
+<thead>
 
 <tr>
 
@@ -112,67 +521,61 @@ let output=`<h3>Result Card</h3>
 <th>Grade</th>
 
 </tr>
-`;
 
-subjects.forEach(sub=>{
+</thead>
 
-let mark=marks[sub];
+<tbody>
 
-total+=mark;
+${rows}
 
-output+=`
-
-<tr>
-
-<td>${sub}</td>
-
-<td>${mark}</td>
-
-<td>${getGrade(mark)}</td>
-
-</tr>
-
-`;
-
-});
-
-let percentage=(total/(subjects.length*100))*100;
-
-let status=percentage>=60?"PASS":"FAIL";
-
-let statusClass=percentage>=60?"pass":"fail";
-
-output+=`
-
-<tr>
-
-<th>Total</th>
-
-<th colspan="2">${total}</th>
-
-</tr>
-
-<tr>
-
-<th>Percentage</th>
-
-<th colspan="2">${percentage.toFixed(2)}%</th>
-
-</tr>
-
-<tr>
-
-<th>Status</th>
-
-<th colspan="2" class="${statusClass}">${status}</th>
-
-</tr>
+</tbody>
 
 </table>
-`;
 
-resultDiv.innerHTML=output;
+<div style="padding:25px;text-align:center;">
+
+<h3>Final Result</h3>
+
+<br>
+
+<span class="status ${statusClass}">
+
+${status}
+
+</span>
+
+<br><br>
+
+${badge}
+
+</div>
+
+<div class="action-buttons">
+
+<button class="print-btn" onclick="window.print()">
+
+🖨 Print Result
+
+</button>
+
+<button class="download-btn" onclick="downloadResult()">
+
+📄 Download
+
+</button>
+
+<button class="copy-btn" onclick="copyResult()">
+
+📋 Copy
+
+</button>
+
+</div>
+
+</div>
+
+        `;
+
+    }, 1200);
 
 }
-
-generateStudents();
