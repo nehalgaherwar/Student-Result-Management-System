@@ -69,7 +69,11 @@ const semester=document.getElementById("semester").value;
 
 const resultDiv=document.getElementById("result");
 
+const downloadBtn=document.getElementById("downloadBtn");
+
 if(name===""||roll===""){
+
+downloadBtn.style.display="none";
 
 resultDiv.innerHTML="<p style='color:red'>Enter Name & Roll</p>";
 
@@ -78,6 +82,8 @@ return;
 }
 
 if(!students[roll]){
+
+downloadBtn.style.display="none";
 
 resultDiv.innerHTML="<p style='color:red'>Invalid Roll</p>";
 
@@ -172,7 +178,41 @@ output+=`
 `;
 
 resultDiv.innerHTML=output;
+downloadBtn.style.display = "block";
+
 
 }
 
 generateStudents();
+async function downloadPDF() {
+    const resultCard = document.getElementById("result");
+
+    if (resultCard.innerHTML.trim() === "") {
+        alert("Please generate a result first.");
+        return;
+    }
+
+    const canvas = await html2canvas(resultCard, {
+        scale: 2
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const { jsPDF } = window.jspdf;
+
+    const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+    });
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * (pdfWidth - 20)) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 10, 10, pdfWidth - 20, pdfHeight);
+
+    const name = document.getElementById("nameInput").value || "Student";
+    const roll = document.getElementById("rollInput").value || "Result";
+
+    pdf.save(`${name}_${roll}_Result.pdf`);
+}
