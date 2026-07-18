@@ -2,46 +2,145 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>IIT Dolkpur | Result Portal</title>
+    <title>IIT Dolkpur | Student Result Portal</title>
 
-<link rel="stylesheet" href="style.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+    <!-- Floating Background -->
+    <div class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-<div class="college">
+    <div class="container">
 
-<h2>🏫 Indian Institute of Technology, Dolkpur</h2>
-<p>Official Student Result Portal</p>
+        <!-- Header -->
 
-</div>
+        <div class="header">
 
-<h1>Student Result System</h1>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
 
-<input type="text" id="nameInput" placeholder="Enter Student Name">
+            <h1>IIT Dolkpur</h1>
 
-<input type="number" id="rollInput" placeholder="Roll Number (101-160)">
+            <p>Official Student Result Management Portal</p>
 
-<select id="semester">
+        </div>
 
-<option value="sem1">Semester 1</option>
-<option value="sem2">Semester 2</option>
+        <!-- Search Card -->
 
-</select>
+        <div class="search-card">
 
-<button onclick="checkResult()">Check Result</button>
+            <div class="input-group">
 
-<div id="result"></div>
+                <label>
+                    <i class="fa-solid fa-user"></i>
+                    Student Name
+                </label>
 
-</div>
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="Enter Student Name">
 
-<script src="script.js"></script>
+            </div>
+
+            <div class="input-group">
+
+                <label>
+                    <i class="fa-solid fa-id-card"></i>
+                    Roll Number
+                </label>
+
+                <input
+                    type="number"
+                    id="rollInput"
+                    placeholder="101 - 160">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>
+                    <i class="fa-solid fa-book"></i>
+                    Semester
+                </label>
+
+                <select id="semester">
+
+                    <option value="sem1">Semester 1</option>
+
+                    <option value="sem2">Semester 2</option>
+
+                </select>
+
+            </div>
+
+            <button id="checkBtn" onclick="checkResult()">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Check Result
+
+            </button>
+
+        </div>
+
+        <!-- Loading -->
+
+        <div id="loader" class="loader hidden">
+
+            <div class="spinner"></div>
+
+            <p>Fetching Student Result...</p>
+
+        </div>
+
+        <!-- Result -->
+
+        <div id="result"></div>
+
+        <!-- Footer -->
+
+        <footer>
+
+            <p>
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                IIT Dolkpur Examination Cell
+
+            </p>
+
+            <small>
+
+                © 2026 Student Result Management System
+
+            </small>
+
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
