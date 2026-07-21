@@ -106,35 +106,35 @@ function getGradeClass(grade) {
 
 }
 
-function overallGrade(percentage){
+function overallGrade(percentage) {
 
-    if(percentage>=90) return "A+";
+    if (percentage >= 90) return "A+";
 
-    if(percentage>=80) return "A";
+    if (percentage >= 80) return "A";
 
-    if(percentage>=70) return "B";
+    if (percentage >= 70) return "B";
 
-    if(percentage>=60) return "C";
+    if (percentage >= 60) return "C";
 
     return "F";
 
 }
 
-function calculateCGPA(percentage){
+function calculateCGPA(percentage) {
 
-    return (percentage/9.5).toFixed(2);
+    return (percentage / 9.5).toFixed(2);
 
 }
 
 // ---------- Loader ----------
 
-function showLoader(){
+function showLoader() {
 
     document.getElementById("loader").classList.remove("hidden");
 
 }
 
-function hideLoader(){
+function hideLoader() {
 
     document.getElementById("loader").classList.add("hidden");
 
