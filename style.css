@@ -33,9 +33,10 @@ body {
 
 }
 
+
 /* ===========================
    FLOATING BACKGROUND
-=========================== */
+   =========================== */
 
 .background {
 
@@ -130,7 +131,7 @@ body {
 }
 
 /* ===========================
-   MAIN CONTAINER
+MAIN CONTAINER
 =========================== */
 
 .container {
@@ -175,6 +176,163 @@ body {
 
     }
 
+}
+
+/* ===========================
+    Toggle theme
+============================*/
+
+body.light {
+    background: #f4f7fb;
+    color: #111827;
+}
+
+body.light .logo {
+    background: linear-gradient(135deg, #ffcc33, #ff8c00);
+    color: white;
+}
+
+body.light .background span {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+body.light .container {
+    background: rgba(0, 0, 0, 0.08);
+    color: #111827;
+}
+
+body.light .header p {
+    color: #374151;
+}
+
+body.light .input-group label {
+    color: #111827;
+}
+
+body.light .loader p{
+    color:#111827;
+}
+
+
+body.light .result-card {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+body.light .student-header {
+    background: linear-gradient(135deg, #dbeafe, #60a5fa);
+    color: #111827;
+}
+
+body.light .summary-box {
+    background: #f8fafc;
+    border: 1px solid #d1d5db;
+}
+
+body.light .summary-box h4 {
+    color: #555;
+}
+
+body.light .summary-box span {
+    color: #2563eb;
+}
+
+body.light .result-table thead {
+    background: #2563eb;
+    color: #fff;
+}
+
+body.light .result-table td {
+    color: #222;
+}
+
+body.light .result-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+body.light .result-table tbody tr:hover {
+    background: #f1f5f9;
+}
+
+
+body.light footer {
+    color: rgb(51, 65, 85);
+    /* #334155 */
+}
+
+
+body.light footer small {
+    color: #555;
+}
+
+
+/* Styling toggle button */
+.theme-toggle {
+    width: 85px;
+    height: 42px;
+    border: none;
+    outline: none;
+    border-radius: 999px;
+    cursor: pointer;
+    position: relative;
+    padding: 4px;
+    background: linear-gradient(135deg, #ffcc33, #ff8c00);
+    transition: .6s;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .25),
+        inset 0 2px 5px rgba(255, 255, 255, .4);
+}
+
+body.dark .theme-toggle {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.toggle-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: .8s cubic-bezier(.68, -0.55, .27, 1.55);
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, .25);
+}
+
+body.dark .toggle-circle {
+    transform: translateX(43px);
+    background: #0f172a;
+}
+
+.icon {
+    position: absolute;
+    font-size: 18px;
+    transition: .35s;
+}
+
+.sun {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+.moon {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+body.dark .sun {
+    opacity: 0;
+    transform: rotate(-180deg);
+}
+
+body.dark .moon {
+    opacity: 1;
+    transform: rotate(0);
 }
 
 /* ===========================
@@ -417,15 +575,15 @@ button:active {
 
     margin-top: 30px;
 
-    background: #ffffff;
+    background: #1e293b;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
 
     color: #222;
 
     border-radius: 20px;
 
     overflow: hidden;
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
 
     animation: slideUp .5s ease;
 
@@ -456,9 +614,7 @@ button:active {
 =========================== */
 
 .student-header {
-
     background: linear-gradient(135deg, #1e3c72, #2a5298);
-
     color: #fff;
 
     padding: 25px;
@@ -531,7 +687,8 @@ button:active {
 
 .summary-box {
 
-    background: #fff;
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .12);
 
     padding: 18px;
 
@@ -547,7 +704,7 @@ button:active {
 
     font-size: 14px;
 
-    color: #777;
+    color: #ddd;
 
     margin-bottom: 8px;
 
@@ -559,7 +716,7 @@ button:active {
 
     font-weight: 700;
 
-    color: #1e3c72;
+    color: #60a5fa;
 
 }
 
@@ -577,8 +734,7 @@ button:active {
 
 .result-table thead {
 
-    background: #2a5298;
-
+    background: #2563eb;
     color: #fff;
 
 }
@@ -592,17 +748,19 @@ button:active {
 .result-table td {
 
     padding: 14px;
-
+    color: #e4e4e4;
     text-align: center;
 
     border-bottom: 1px solid #ececec;
 
 }
 
+.result-table tbody tr{
+    border-bottom: 1px solid #334155;
+}
+
 .result-table tbody tr:hover {
-
-    background: #f6f8ff;
-
+    background: rgba(255, 255, 255, .05);
 }
 
 /* ===========================
