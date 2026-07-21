@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Management Login</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #4facfe, #00f2fe);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating Circles */
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .15);
+            backdrop-filter: blur(10px);
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1) {
+            width: 180px;
+            height: 180px;
+            top: 8%;
+            left: 10%;
+        }
+
+        .circle:nth-child(2) {
+            width: 280px;
+            height: 280px;
+            right: -80px;
+            bottom: -80px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-35px);
+            }
+        }
+
+        .login-card {
+
+            width: 380px;
+            padding: 40px;
+            border-radius: 25px;
+
+            background: rgba(255, 255, 255, .12);
+
+            border: 1px solid rgba(255, 255, 255, .25);
+
+            backdrop-filter: blur(25px);
+
+            box-shadow: 0 15px 45px rgba(0, 0, 0, .25);
+
+            color: white;
+
+            animation: fadeUp 1s ease;
+
+        }
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .login-card:hover {
+
+            transform: translateY(-8px);
+            transition: .4s;
+
+            box-shadow: 0 25px 60px rgba(0, 0, 0, .35);
+
+        }
+
+        .logo {
+
+            font-size: 50px;
+            text-align: center;
+
+        }
+
+        h2 {
+
+            text-align: center;
+            margin: 10px 0 30px;
+
+            font-weight: 600;
+
+        }
+
+        .input-group {
+
+            margin-bottom: 22px;
+            position: relative;
+
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 15px 18px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 12px;
+
+            font-size: 15px;
+
+            background: rgba(255, 255, 255, .15);
+
+            color: white;
+
+            transition: .3s;
+
+        }
+
+        input::placeholder {
+
+            color: #ddd;
+
+        }
+
+        input:focus {
+
+            background: rgba(255, 255, 255, .25);
+
+            transform: scale(1.02);
+
+        }
+
+        .toggle {
+
+            position: absolute;
+
+            right: 18px;
+
+            top: 15px;
+
+            cursor: pointer;
+
+            user-select: none;
+
+            font-size: 18px;
+
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .35s;
+
+            color: #5f2eea;
+
+        }
+
+        button:hover {
+
+            transform: translateY(-3px);
+
+            background: #f1f1f1;
+
+            box-shadow: 0 10px 25px rgba(255, 255, 255, .3);
+
+        }
+
+        #error {
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            min-height: 20px;
+
+        }
+
+        .footer {
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            opacity: .8;
+
+        }
+
+        .shake {
+
+            animation: shake .4s;
+
+        }
+
+        @keyframes shake {
+
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            50% {
+                transform: translateX(8px);
+            }
+
+            75% {
+                transform: translateX(-8px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+
+        }
+
+        .success {
+
+            animation: success .6s;
+
+        }
+
+        @keyframes success {
+
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <div class="login-card" id="card">
+
+        <div class="logo">🎓</div>
+
+        <h2>Student Result Management</h2>
+
+        <div class="input-group">
+
+            <input type="text" id="username" placeholder="Username">
+
+        </div>
+
+        <div class="input-group">
+
+            <input type="password" id="password" placeholder="Password">
+
+            <span class="toggle" onclick="togglePassword()">👁️</span>
+
+        </div>
+
+        <button onclick="login()">
+            Login
+        </button>
+
+        <p id="error"></p>
+
+        <div class="footer">
+            Enter your username and password to continue.
+        </div>
+
+    </div>
+
+    <script>
+
+        function togglePassword() {
+
+            const pass = document.getElementById("password");
+
+            pass.type = pass.type === "password" ? "text" : "password";
+
+        }
+
+        function login() {
+
+            const username = document.getElementById("username").value.trim();
+
+            const password = document.getElementById("password").value.trim();
+
+            const card = document.getElementById("card");
+
+            const error = document.getElementById("error");
+
+            if (username === "" || password === "") {
+
+                error.style.color = "#ffbaba";
+
+                error.innerHTML = "✖ Please fill in all fields.";
+
+                card.classList.remove("success");
+
+                card.classList.add("shake");
+
+                setTimeout(() => {
+
+                    card.classList.remove("shake");
+
+                }, 500);
+
+                return;
+
+            }
+
+            error.style.color = "#8cff8c";
+
+            error.innerHTML = "✔ Login Successful";
+
+            card.classList.remove("shake");
+
+            card.classList.add("success");
+
+            setTimeout(() => {
+
+                window.location.href = "index.html";
+
+            }, 1200);
+
+        }
+
+        document.addEventListener("keypress", function (e) {
+
+            if (e.key === "Enter") {
+
+                login();
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

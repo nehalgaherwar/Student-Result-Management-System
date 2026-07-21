@@ -177,6 +177,17 @@ function checkResult() {
         return;
     }
 
+    const namePattern = /^[A-Za-z ]+$/;
+
+    if (!namePattern.test(name)) {
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red;">Please enter a valid student name.</h3>
+            </div>
+        `;
+        return;
+    }
+
     showLoader();
 
     resultDiv.innerHTML = "";
