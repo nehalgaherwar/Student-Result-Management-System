@@ -177,7 +177,7 @@ function checkResult() {
         return;
     }
 
-    const namePattern = /^[A-Za-z\s]+$/;
+    const namePattern = /^[A-Za-z ]+$/;
 
     if (!namePattern.test(name)) {
         resultDiv.innerHTML = `
