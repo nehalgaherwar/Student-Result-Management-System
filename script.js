@@ -21,6 +21,54 @@ const semesters = {
         "CN",
         "CA",
         "EM"
+    ],
+
+    sem3: [
+        "Data Structures",
+        "Operating System",
+        "Digital Electronics",
+        "Discrete Math",
+        "OOP"
+    ],
+
+    sem4: [
+        "Java",
+        "Software Engineering",
+        "Computer Graphics",
+        "Microprocessor",
+        "Statistics"
+    ],
+
+    sem5: [
+        "Web Development",
+        "Data Mining",
+        "AI",
+        "Cyber Security",
+        "Cloud Computing"
+    ],
+
+    sem6: [
+        "Machine Learning",
+        "Mobile Computing",
+        "Compiler Design",
+        "IoT",
+        "Advanced DBMS"
+    ],
+
+    sem7: [
+        "Big Data",
+        "Blockchain",
+        "DevOps",
+        "Project Management",
+        "Elective I"
+    ],
+
+    sem8: [
+        "Major Project",
+        "Internship",
+        "Seminar",
+        "Elective II",
+        "Entrepreneurship"
     ]
 };
 
@@ -43,22 +91,20 @@ function generateStudents() {
 
         const roll = 100 + i;
 
-        let sem1 = {};
-        let sem2 = {};
+        const semesterMarks = {};
 
-        semesters.sem1.forEach(subject => {
-            sem1[subject] = randomMarks();
-        });
+        Object.entries(semesters).forEach(([semester, subjects]) => {
+            semesterMarks[semester] = {};
 
-        semesters.sem2.forEach(subject => {
-            sem2[subject] = randomMarks();
+            subjects.forEach(subject => {
+                semesterMarks[semester][subject] = randomMarks();
+            });
         });
 
         students[roll] = {
             roll,
             name: `Student ${i}`,
-            sem1,
-            sem2
+            ...semesterMarks
         };
 
     }
