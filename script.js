@@ -285,6 +285,8 @@ function checkResult() {
 
         const shareLink = generateShareLink(name, roll, semester);
 
+        const progressBarClass = getGradeClass(grade);
+
         resultDiv.innerHTML = `
         <div class="result-card">
 
@@ -335,6 +337,19 @@ function checkResult() {
                     <h4>Grade</h4>
 
                     <span>${grade}</span>
+
+                </div>
+
+                <div class="summary-box progress-container">
+
+                    <div class="progress-label">
+                        <span>Overall Performance</span>
+                        <span>${percentage}%</span>
+                    </div>
+
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill grade-${progressBarClass}" style="width:${percentage}%"></div>
+                    </div>
 
                 </div>
 
