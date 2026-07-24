@@ -139,6 +139,51 @@ function hideLoader() {
     document.getElementById("loader").classList.add("hidden");
 
 }
+
+// ---------- Share Result ----------
+
+function generateShareLink(name, roll, semester) {
+    const url = new URL(window.location.href.split("?")[0]);
+    url.searchParams.set("name", name);
+    url.searchParams.set("roll", roll);
+    url.searchParams.set("sem", semester);
+    return url.toString();
+}
+
+function copyShareLink() {
+    const link = document.getElementById("shareLinkInput").value;
+    navigator.clipboard.writeText(link).then(() => {
+        alert("Result link copied to clipboard!");
+    }).catch(() => {
+        alert("Could not copy link. Please copy it manually:\n" + link);
+    });
+}
+
+function shareOnWhatsApp() {
+    const link = document.getElementById("shareLinkInput").value;
+    const text = encodeURIComponent(`Check out my result: ${link}`);
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+}
+
+function shareViaEmail() {
+    const link = document.getElementById("shareLinkInput").value;
+    const subject = encodeURIComponent("My Student Result - IIT Dolkpur");
+    const body = encodeURIComponent(`Hi,\n\nHere is my result:\n${link}\n\nRegards`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+// ---------- Auto-load result from a shared link ----------
+
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("roll")) {
+        document.getElementById("nameInput").value = params.get("name") || "";
+        document.getElementById("rollInput").value = params.get("roll") || "";
+        document.getElementById("semester").value = params.get("sem") || "sem1";
+        checkResult();
+    }
+});
+
 function checkResult() {
 
     const name = document.getElementById("nameInput").value.trim();
@@ -238,6 +283,10 @@ function checkResult() {
 
         const statusClass = failed ? "fail" : "pass";
 
+        const shareLink = generateShareLink(name, roll, semester);
+
+        const progressBarClass = getGradeClass(grade);
+
         resultDiv.innerHTML = `
         <div class="result-card">
 
@@ -291,6 +340,19 @@ function checkResult() {
 
                 </div>
 
+                <div class="summary-box progress-container">
+
+                    <div class="progress-label">
+                        <span>Overall Performance</span>
+                        <span>${percentage}%</span>
+                    </div>
+
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill grade-${progressBarClass}" style="width:${percentage}%"></div>
+                    </div>
+
+                </div>
+
             </div>
 
             <table class="result-table">
@@ -320,6 +382,24 @@ function checkResult() {
             <div style="padding:25px;text-align:center">
 
                 <span class="status ${statusClass}">${status}</span>
+
+            </div>
+
+            <input type="hidden" id="shareLinkInput" value="${shareLink}">
+
+            <div class="action-buttons">
+
+                <button class="copy-btn" onclick="copyShareLink()">
+                    <i class="fa-solid fa-link"></i> Copy Link
+                </button>
+
+                <button class="whatsapp-btn" onclick="shareOnWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </button>
+
+                <button class="email-btn" onclick="shareViaEmail()">
+                    <i class="fa-solid fa-envelope"></i> Email
+                </button>
 
             </div>
 
