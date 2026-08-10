@@ -1,705 +1,341 @@
-<!DOCTYPE html>
-<html lang="en">
+// ===============================
+// Student Result Management System
+// Version 2.0
+// ===============================
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Result Management Login</title>
+// ---------- Subjects ----------
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+const semesters = {
+    sem1: [
+        "IT",
+        "ENG-Math",
+        "CAD",
+        "Web-Tech",
+        "Python",
+        "BEDE"
+    ],
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+    sem2: [
+        "C++",
+        "DBMS",
+        "CN",
+        "CA",
+        "EM"
+    ]
+};
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0F172A, #1E293B);
-            position: relative;
-        }
+// ---------- Student Database ----------
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: -2;
-        }
+const students = {};
+const TOTAL_STUDENTS = 60;
 
-        /* Floating Circles */
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .02);
-            backdrop-filter: blur(10px);
-            animation: float 8s infinite ease-in-out;
-            z-index: -1;
-        }
+// ---------- Random Marks ----------
 
-        .circle:nth-child(1) {
-            width: 180px;
-            height: 180px;
-            top: 8%;
-            left: 10%;
-        }
+function randomMarks() {
+    return Math.floor(Math.random() * 66) + 35;
+}
 
-        .circle:nth-child(2) {
-            width: 280px;
-            height: 280px;
-            right: -80px;
-            bottom: -80px;
-            animation-delay: 2s;
-        }
+// ---------- Create Students ----------
 
-        .circle:nth-child(3) {
-            width: 120px;
-            height: 120px;
-            bottom: 15%;
-            left: 20%;
-            animation-delay: 4s;
-        }
+function generateStudents() {
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-35px); }
-        }
+    for (let i = 1; i <= TOTAL_STUDENTS; i++) {
 
-        .login-card {
-            width: 380px;
-            padding: 40px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            color: #334155;
-            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) ease;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        const roll = 100 + i;
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        let sem1 = {};
+        let sem2 = {};
 
-        .login-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-        }
+        semesters.sem1.forEach(subject => {
+            sem1[subject] = randomMarks();
+        });
 
-        .logo {
-            font-size: 50px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+        semesters.sem2.forEach(subject => {
+            sem2[subject] = randomMarks();
+        });
 
-        h2 {
-            text-align: center;
-            margin: 10px 0 30px;
-            font-weight: 700;
-            color: #1E293B;
-            font-size: 22px;
-            letter-spacing: 0.5px;
-        }
+        students[roll] = {
+            roll,
+            name: `Student ${i}`,
+            sem1,
+            sem2
+        };
 
-        .input-group {
-            margin-bottom: 22px;
-            position: relative;
-        }
+    }
 
-        input {
-            width: 100%;
-            padding: 15px 18px;
-            border: 1px solid #E2E8F0;
-            outline: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            background: #F8FAFC;
-            color: #334155;
-            transition: all 0.2s ease;
-        }
+}
 
-        input::placeholder {
-            color: #94A3B8;
-        }
+generateStudents();
 
-        input:focus {
-            background: #ffffff;
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
+// ---------- Grade ----------
 
-        .toggle {
-            position: absolute;
-            right: 18px;
-            top: 15px;
-            cursor: pointer;
-            user-select: none;
-            font-size: 18px;
-            color: #64748B;
-            transition: color 0.2s;
-        }
+function getGrade(mark) {
 
-        .toggle:hover {
-            color: #2563EB;
-        }
+    if (mark >= 90) return "A+";
 
-        button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #2563EB, #1D4ED8);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-        }
+    if (mark >= 80) return "A";
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
-            filter: brightness(1.05);
-        }
+    if (mark >= 70) return "B";
 
-        button:active {
-            transform: translateY(0);
-        }
+    if (mark >= 60) return "C";
 
-        #error {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            color: #DC2626;
-            min-height: 20px;
-        }
+    return "F";
 
-        .footer {
-            margin-top: 25px;
-            text-align: center;
-            font-size: 13px;
-            color: #64748B;
-            font-weight: 500;
-        }
+}
 
-        .shake {
-            animation: shake .4s;
-        }
+function getGradeClass(grade) {
 
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            50% { transform: translateX(8px); }
-            75% { transform: translateX(-8px); }
-            100% { transform: translateX(0); }
-        }
+    switch (grade) {
 
-        .success {
-            animation: success .6s;
-        }
+        case "A+":
+            return "aplus";
 
-        @keyframes success {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-    </style>
-</head>
+        case "A":
+            return "a";
 
-<body>
+        case "B":
+            return "b";
 
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
+        case "C":
+            return "c";
 
-    <div class="login-card" id="card">
+        default:
+            return "f";
 
-        <div class="lang-switcher" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-            <select id="languageSelect" onchange="setLanguage(this.value)" style="background: #F1F5F9; color: #334155; padding: 6px 12px; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 13px; cursor: pointer; outline: none; font-weight: 600;">
-                <option value="en" style="background:#ffffff; color:#334155;">English (English)</option>
-                <option value="hi" style="background:#ffffff; color:#334155;">हिंदी (Hindi)</option>
-                <option value="ta" style="background:#ffffff; color:#334155;">தமிழ் (Tamil)</option>
-                <option value="te" style="background:#ffffff; color:#334155;">తెలుగు (Telugu)</option>
-                <option value="bn" style="background:#ffffff; color:#334155;">বাংলা (Bengali)</option>
-                <option value="mr" style="background:#ffffff; color:#334155;">मराठी (Marathi)</option>
-            </select>
-        </div>
+    }
 
-        <div class="logo">🎓</div>
+}
 
-        <h2 data-i18n="login_title">Student Result Management</h2>
+function overallGrade(percentage) {
 
-        <div class="input-group">
+    if (percentage >= 90) return "A+";
 
-            <input type="text" id="username" placeholder="Username" data-i18n-placeholder="placeholder_username">
+    if (percentage >= 80) return "A";
+
+    if (percentage >= 70) return "B";
+
+    if (percentage >= 60) return "C";
+
+    return "F";
+
+}
+
+function calculateCGPA(percentage) {
+
+    return (percentage / 9.5).toFixed(2);
+
+}
+
+// ---------- Loader ----------
+
+function showLoader() {
+
+    document.getElementById("loader").classList.remove("hidden");
+
+}
+
+function hideLoader() {
+
+    document.getElementById("loader").classList.add("hidden");
+
+}
+let currentActiveResult = null;
+
+function renderResultCard(student, semester, name) {
+    const resultDiv = document.getElementById("result");
+    const subjects = semesters[semester];
+    const marks = student[semester];
+
+    let total = 0;
+    let failed = false;
+    let rows = "";
+
+    subjects.forEach(subject => {
+        const mark = marks[subject];
+        const grade = getGrade(mark);
+
+        if (mark < 40) failed = true;
+
+        total += mark;
+
+        rows += `
+            <tr>
+                <td>${subject}</td>
+                <td>${mark}</td>
+                <td>
+                    <span class="grade ${getGradeClass(grade)}">${grade}</span>
+                </td>
+            </tr>
+        `;
+    });
+
+    const percentage = (total / subjects.length).toFixed(2);
+    const cgpa = calculateCGPA(percentage);
+    const grade = overallGrade(percentage);
+    const statusText = failed ? t("status_fail") : t("status_pass");
+    const statusClass = failed ? "fail" : "pass";
+    const semText = t(semester === "sem1" ? "sem_1" : "sem_2");
+
+    resultDiv.innerHTML = `
+    <div class="result-card">
+
+        <div class="student-header">
+
+            <div class="avatar">${name.charAt(0).toUpperCase()}</div>
+
+            <div class="student-info">
+
+                <h2>${name}</h2>
+
+                <p>${t("roll_no_prefix")} : ${student.roll}</p>
+
+                <p>${semText}</p>
+
+            </div>
 
         </div>
 
-        <div class="input-group">
+        <div class="summary">
 
-            <input type="password" id="password" placeholder="Password" data-i18n-placeholder="placeholder_password">
+            <div class="summary-box">
 
-            <span class="toggle" onclick="togglePassword()">👁️</span>
+                <h4>${t("summary_total")}</h4>
+
+                <span>${total}</span>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h4>${t("summary_percentage")}</h4>
+
+                <span>${percentage}%</span>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h4>${t("summary_cgpa")}</h4>
+
+                <span>${cgpa}</span>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h4>${t("summary_grade")}</h4>
+
+                <span>${grade}</span>
+
+            </div>
 
         </div>
 
-        <button onclick="login()" data-i18n="btn_login">
-            Login
-        </button>
+        <table class="result-table">
 
-        <p id="error"></p>
+            <thead>
 
-        <div class="footer" data-i18n="login_footer_text">
-            Enter your username and password to continue.
+                <tr>
+
+                    <th>${t("th_subject")}</th>
+
+                    <th>${t("th_marks")}</th>
+
+                    <th>${t("th_grade")}</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${rows}
+
+            </tbody>
+
+        </table>
+
+        <div style="padding:25px;text-align:center">
+
+            <span class="status ${statusClass}">${statusText}</span>
+
         </div>
 
     </div>
-
-    <script src="translations.js"></script>
-    <script>
-
-        function togglePassword() {
-
-            const pass = document.getElementById("password");
-
-            pass.type = pass.type === "password" ? "text" : "password";
-
-        }
-
-        function login() {
-
-            const username = document.getElementById("username").value.trim();
-
-            const password = document.getElementById("password").value.trim();
-
-            const card = document.getElementById("card");
-
-            const error = document.getElementById("error");
-
-            if (username === "" || password === "") {
-
-                error.style.color = "#DC2626";
-
-                error.innerHTML = t("err_fill_all");
-
-                card.classList.remove("success");
-
-                card.classList.add("shake");
-
-                setTimeout(() => {
-
-                    card.classList.remove("shake");
-
-                }, 500);
-
-                return;
-
-            }
-
-            error.style.color = "#16A34A";
-
-            error.innerHTML = t("success_login");
-
-            card.classList.remove("shake");
-
-            card.classList.add("success");
-
-            setTimeout(() => {
-
-                window.location.href = "index.html";
-
-            }, 1200);
-
-        }
-
-        document.addEventListener("keypress", function (e) {
-
-            if (e.key === "Enter") {
-
-                login();
-
-            }
-
-        });
-
-    </script>
-
-</body>
-
-</html><!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Result Management Login</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0F172A, #1E293B);
-            position: relative;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: -2;
-        }
-
-        /* Floating Circles */
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .02);
-            backdrop-filter: blur(10px);
-            animation: float 8s infinite ease-in-out;
-            z-index: -1;
-        }
-
-        .circle:nth-child(1) {
-            width: 180px;
-            height: 180px;
-            top: 8%;
-            left: 10%;
-        }
-
-        .circle:nth-child(2) {
-            width: 280px;
-            height: 280px;
-            right: -80px;
-            bottom: -80px;
-            animation-delay: 2s;
-        }
-
-        .circle:nth-child(3) {
-            width: 120px;
-            height: 120px;
-            bottom: 15%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-35px); }
-        }
-
-        .login-card {
-            width: 380px;
-            padding: 40px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            color: #334155;
-            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) ease;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-        }
-
-        .logo {
-            font-size: 50px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            text-align: center;
-            margin: 10px 0 30px;
-            font-weight: 700;
-            color: #1E293B;
-            font-size: 22px;
-            letter-spacing: 0.5px;
-        }
-
-        .input-group {
-            margin-bottom: 22px;
-            position: relative;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px 18px;
-            border: 1px solid #E2E8F0;
-            outline: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            background: #F8FAFC;
-            color: #334155;
-            transition: all 0.2s ease;
-        }
-
-        input::placeholder {
-            color: #94A3B8;
-        }
-
-        input:focus {
-            background: #ffffff;
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .toggle {
-            position: absolute;
-            right: 18px;
-            top: 15px;
-            cursor: pointer;
-            user-select: none;
-            font-size: 18px;
-            color: #64748B;
-            transition: color 0.2s;
-        }
-
-        .toggle:hover {
-            color: #2563EB;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #2563EB, #1D4ED8);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
-            filter: brightness(1.05);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        #error {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            color: #DC2626;
-            min-height: 20px;
-        }
-
-        .footer {
-            margin-top: 25px;
-            text-align: center;
-            font-size: 13px;
-            color: #64748B;
-            font-weight: 500;
-        }
-
-        .shake {
-            animation: shake .4s;
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            50% { transform: translateX(8px); }
-            75% { transform: translateX(-8px); }
-            100% { transform: translateX(0); }
-        }
-
-        .success {
-            animation: success .6s;
-        }
-
-        @keyframes success {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-
-    <div class="login-card" id="card">
-
-        <div class="lang-switcher" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-            <select id="languageSelect" onchange="setLanguage(this.value)" style="background: #F1F5F9; color: #334155; padding: 6px 12px; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 13px; cursor: pointer; outline: none; font-weight: 600;">
-                <option value="en" style="background:#ffffff; color:#334155;">English (English)</option>
-                <option value="hi" style="background:#ffffff; color:#334155;">हिंदी (Hindi)</option>
-                <option value="ta" style="background:#ffffff; color:#334155;">தமிழ் (Tamil)</option>
-                <option value="te" style="background:#ffffff; color:#334155;">తెలుగు (Telugu)</option>
-                <option value="bn" style="background:#ffffff; color:#334155;">বাংলা (Bengali)</option>
-                <option value="mr" style="background:#ffffff; color:#334155;">मराठी (Marathi)</option>
-            </select>
-        </div>
-
-        <div class="logo">🎓</div>
-
-        <h2 data-i18n="login_title">Student Result Management</h2>
-
-        <div class="input-group">
-
-            <input type="text" id="username" placeholder="Username" data-i18n-placeholder="placeholder_username">
-
-        </div>
-
-        <div class="input-group">
-
-            <input type="password" id="password" placeholder="Password" data-i18n-placeholder="placeholder_password">
-
-            <span class="toggle" onclick="togglePassword()">👁️</span>
-
-        </div>
-
-        <button onclick="login()" data-i18n="btn_login">
-            Login
-        </button>
-
-        <p id="error"></p>
-
-        <div class="footer" data-i18n="login_footer_text">
-            Enter your username and password to continue.
-        </div>
-
-    </div>
-
-    <script src="translations.js"></script>
-    <script>
-
-        function togglePassword() {
-
-            const pass = document.getElementById("password");
-
-            pass.type = pass.type === "password" ? "text" : "password";
-
-        }
-
-        function login() {
-
-            const username = document.getElementById("username").value.trim();
-
-            const password = document.getElementById("password").value.trim();
-
-            const card = document.getElementById("card");
-
-            const error = document.getElementById("error");
-
-            if (username === "" || password === "") {
-
-                error.style.color = "#DC2626";
-
-                error.innerHTML = t("err_fill_all");
-
-                card.classList.remove("success");
-
-                card.classList.add("shake");
-
-                setTimeout(() => {
-
-                    card.classList.remove("shake");
-
-                }, 500);
-
-                return;
-
-            }
-
-            error.style.color = "#16A34A";
-
-            error.innerHTML = t("success_login");
-
-            card.classList.remove("shake");
-
-            card.classList.add("success");
-
-            setTimeout(() => {
-
-                window.location.href = "index.html";
-
-            }, 1200);
-
-        }
-
-        document.addEventListener("keypress", function (e) {
-
-            if (e.key === "Enter") {
-
-                login();
-
-            }
-
-        });
-
-    </script>
-
-</body>
-
-</html>
+    `;
+}
+
+window.refreshCurrentResult = function () {
+    if (currentActiveResult) {
+        renderResultCard(currentActiveResult.student, currentActiveResult.semester, currentActiveResult.name);
+    }
+};
+
+function checkResult() {
+
+    const name = document.getElementById("nameInput").value.trim();
+    const roll = document.getElementById("rollInput").value.trim();
+    const semester = document.getElementById("semester").value;
+
+    const resultDiv = document.getElementById("result");
+
+    if (name === "") {
+
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_enter_name")}</h3>
+            </div>
+        `;
+        currentActiveResult = null;
+        return;
+    }
+
+    if (roll === "") {
+
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_enter_roll")}</h3>
+            </div>
+        `;
+        currentActiveResult = null;
+        return;
+    }
+
+    if (!students[roll]) {
+
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_invalid_roll")}</h3>
+            </div>
+        `;
+        currentActiveResult = null;
+        return;
+    }
+
+    const namePattern = /^[A-Za-z ]+$/;
+
+    if (!namePattern.test(name)) {
+        resultDiv.innerHTML = `
+            <div class="result-card">
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_valid_name")}</h3>
+            </div>
+        `;
+        currentActiveResult = null;
+        return;
+    }
+
+    showLoader();
+
+    resultDiv.innerHTML = "";
+
+    setTimeout(() => {
+
+        hideLoader();
+
+        const student = students[roll];
+        currentActiveResult = { student, semester, name };
+        renderResultCard(student, semester, name);
+
+    }, 800);
+
+}
