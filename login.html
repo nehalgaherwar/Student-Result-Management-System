@@ -6,50 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Result Management Login</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background: linear-gradient(-45deg, #667eea, #764ba2, #4facfe, #00f2fe);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            position: relative;
         }
 
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -2;
         }
 
         /* Floating Circles */
-
         .circle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .02);
             backdrop-filter: blur(10px);
             animation: float 8s infinite ease-in-out;
+            z-index: -1;
         }
 
         .circle:nth-child(1) {
@@ -76,245 +73,159 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-35px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-35px); }
         }
 
         .login-card {
-
             width: 380px;
             padding: 40px;
-            border-radius: 25px;
-
-            background: rgba(255, 255, 255, .12);
-
-            border: 1px solid rgba(255, 255, 255, .25);
-
-            backdrop-filter: blur(25px);
-
-            box-shadow: 0 15px 45px rgba(0, 0, 0, .25);
-
-            color: white;
-
-            animation: fadeUp 1s ease;
-
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            color: #334155;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes fadeUp {
-
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
-
         }
 
         .login-card:hover {
-
-            transform: translateY(-8px);
-            transition: .4s;
-
-            box-shadow: 0 25px 60px rgba(0, 0, 0, .35);
-
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
         }
 
         .logo {
-
             font-size: 50px;
             text-align: center;
-
+            margin-bottom: 10px;
         }
 
         h2 {
-
             text-align: center;
             margin: 10px 0 30px;
-
-            font-weight: 600;
-
+            font-weight: 700;
+            color: #1E293B;
+            font-size: 22px;
+            letter-spacing: 0.5px;
         }
 
         .input-group {
-
             margin-bottom: 22px;
             position: relative;
-
         }
 
         input {
-
             width: 100%;
-
             padding: 15px 18px;
-
-            border: none;
-
+            border: 1px solid #E2E8F0;
             outline: none;
-
             border-radius: 12px;
-
             font-size: 15px;
-
-            background: rgba(255, 255, 255, .15);
-
-            color: white;
-
-            transition: .3s;
-
+            font-weight: 500;
+            background: #F8FAFC;
+            color: #334155;
+            transition: all 0.2s ease;
         }
 
         input::placeholder {
-
-            color: #ddd;
-
+            color: #94A3B8;
         }
 
         input:focus {
-
-            background: rgba(255, 255, 255, .25);
-
-            transform: scale(1.02);
-
+            background: #ffffff;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
         .toggle {
-
             position: absolute;
-
             right: 18px;
-
             top: 15px;
-
             cursor: pointer;
-
             user-select: none;
-
             font-size: 18px;
+            color: #64748B;
+            transition: color 0.2s;
+        }
 
+        .toggle:hover {
+            color: #2563EB;
         }
 
         button {
-
             width: 100%;
-
             padding: 15px;
-
             border: none;
-
             border-radius: 12px;
-
-            background: white;
-
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
             font-size: 16px;
-
             font-weight: 600;
-
             cursor: pointer;
-
-            transition: .35s;
-
-            color: #5f2eea;
-
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
         button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+            filter: brightness(1.05);
+        }
 
-            transform: translateY(-3px);
-
-            background: #f1f1f1;
-
-            box-shadow: 0 10px 25px rgba(255, 255, 255, .3);
-
+        button:active {
+            transform: translateY(0);
         }
 
         #error {
-
             margin-top: 15px;
-
             text-align: center;
-
             font-size: 14px;
-
-            font-weight: 500;
-
+            font-weight: 600;
+            color: #DC2626;
             min-height: 20px;
-
         }
 
         .footer {
-
             margin-top: 25px;
-
             text-align: center;
-
             font-size: 13px;
-
-            opacity: .8;
-
+            color: #64748B;
+            font-weight: 500;
         }
 
         .shake {
-
             animation: shake .4s;
-
         }
 
         @keyframes shake {
-
-            0% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-8px);
-            }
-
-            50% {
-                transform: translateX(8px);
-            }
-
-            75% {
-                transform: translateX(-8px);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
-
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
         }
 
         .success {
-
             animation: success .6s;
-
         }
 
         @keyframes success {
-
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
@@ -327,36 +238,48 @@
 
     <div class="login-card" id="card">
 
+        <div class="lang-switcher" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+            <select id="languageSelect" onchange="setLanguage(this.value)" style="background: #F1F5F9; color: #334155; padding: 6px 12px; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 13px; cursor: pointer; outline: none; font-weight: 600;">
+                <option value="en" style="background:#ffffff; color:#334155;">English (English)</option>
+                <option value="hi" style="background:#ffffff; color:#334155;">हिंदी (Hindi)</option>
+                <option value="ta" style="background:#ffffff; color:#334155;">தமிழ் (Tamil)</option>
+                <option value="te" style="background:#ffffff; color:#334155;">తెలుగు (Telugu)</option>
+                <option value="bn" style="background:#ffffff; color:#334155;">বাংলা (Bengali)</option>
+                <option value="mr" style="background:#ffffff; color:#334155;">मराठी (Marathi)</option>
+            </select>
+        </div>
+
         <div class="logo">🎓</div>
 
-        <h2>Student Result Management</h2>
+        <h2 data-i18n="login_title">Student Result Management</h2>
 
         <div class="input-group">
 
-            <input type="text" id="username" placeholder="Username">
+            <input type="text" id="username" placeholder="Username" data-i18n-placeholder="placeholder_username">
 
         </div>
 
         <div class="input-group">
 
-            <input type="password" id="password" placeholder="Password">
+            <input type="password" id="password" placeholder="Password" data-i18n-placeholder="placeholder_password">
 
             <span class="toggle" onclick="togglePassword()">👁️</span>
 
         </div>
 
-        <button onclick="login()">
+        <button onclick="login()" data-i18n="btn_login">
             Login
         </button>
 
         <p id="error"></p>
 
-        <div class="footer">
+        <div class="footer" data-i18n="login_footer_text">
             Enter your username and password to continue.
         </div>
 
     </div>
 
+    <script src="translations.js"></script>
     <script>
 
         function togglePassword() {
@@ -379,9 +302,9 @@
 
             if (username === "" || password === "") {
 
-                error.style.color = "#ffbaba";
+                error.style.color = "#DC2626";
 
-                error.innerHTML = "✖ Please fill in all fields.";
+                error.innerHTML = t("err_fill_all");
 
                 card.classList.remove("success");
 
@@ -397,9 +320,361 @@
 
             }
 
-            error.style.color = "#8cff8c";
+            error.style.color = "#16A34A";
 
-            error.innerHTML = "✔ Login Successful";
+            error.innerHTML = t("success_login");
+
+            card.classList.remove("shake");
+
+            card.classList.add("success");
+
+            setTimeout(() => {
+
+                window.location.href = "index.html";
+
+            }, 1200);
+
+        }
+
+        document.addEventListener("keypress", function (e) {
+
+            if (e.key === "Enter") {
+
+                login();
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Management Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -2;
+        }
+
+        /* Floating Circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .02);
+            backdrop-filter: blur(10px);
+            animation: float 8s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        .circle:nth-child(1) {
+            width: 180px;
+            height: 180px;
+            top: 8%;
+            left: 10%;
+        }
+
+        .circle:nth-child(2) {
+            width: 280px;
+            height: 280px;
+            right: -80px;
+            bottom: -80px;
+            animation-delay: 2s;
+        }
+
+        .circle:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-35px); }
+        }
+
+        .login-card {
+            width: 380px;
+            padding: 40px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            color: #334155;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .logo {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 10px 0 30px;
+            font-weight: 700;
+            color: #1E293B;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #E2E8F0;
+            outline: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            background: #F8FAFC;
+            color: #334155;
+            transition: all 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #94A3B8;
+        }
+
+        input:focus {
+            background: #ffffff;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .toggle {
+            position: absolute;
+            right: 18px;
+            top: 15px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 18px;
+            color: #64748B;
+            transition: color 0.2s;
+        }
+
+        .toggle:hover {
+            color: #2563EB;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+            filter: brightness(1.05);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #error {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #DC2626;
+            min-height: 20px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .shake {
+            animation: shake .4s;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
+        }
+
+        .success {
+            animation: success .6s;
+        }
+
+        @keyframes success {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <div class="login-card" id="card">
+
+        <div class="lang-switcher" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+            <select id="languageSelect" onchange="setLanguage(this.value)" style="background: #F1F5F9; color: #334155; padding: 6px 12px; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 13px; cursor: pointer; outline: none; font-weight: 600;">
+                <option value="en" style="background:#ffffff; color:#334155;">English (English)</option>
+                <option value="hi" style="background:#ffffff; color:#334155;">हिंदी (Hindi)</option>
+                <option value="ta" style="background:#ffffff; color:#334155;">தமிழ் (Tamil)</option>
+                <option value="te" style="background:#ffffff; color:#334155;">తెలుగు (Telugu)</option>
+                <option value="bn" style="background:#ffffff; color:#334155;">বাংলা (Bengali)</option>
+                <option value="mr" style="background:#ffffff; color:#334155;">मराठी (Marathi)</option>
+            </select>
+        </div>
+
+        <div class="logo">🎓</div>
+
+        <h2 data-i18n="login_title">Student Result Management</h2>
+
+        <div class="input-group">
+
+            <input type="text" id="username" placeholder="Username" data-i18n-placeholder="placeholder_username">
+
+        </div>
+
+        <div class="input-group">
+
+            <input type="password" id="password" placeholder="Password" data-i18n-placeholder="placeholder_password">
+
+            <span class="toggle" onclick="togglePassword()">👁️</span>
+
+        </div>
+
+        <button onclick="login()" data-i18n="btn_login">
+            Login
+        </button>
+
+        <p id="error"></p>
+
+        <div class="footer" data-i18n="login_footer_text">
+            Enter your username and password to continue.
+        </div>
+
+    </div>
+
+    <script src="translations.js"></script>
+    <script>
+
+        function togglePassword() {
+
+            const pass = document.getElementById("password");
+
+            pass.type = pass.type === "password" ? "text" : "password";
+
+        }
+
+        function login() {
+
+            const username = document.getElementById("username").value.trim();
+
+            const password = document.getElementById("password").value.trim();
+
+            const card = document.getElementById("card");
+
+            const error = document.getElementById("error");
+
+            if (username === "" || password === "") {
+
+                error.style.color = "#DC2626";
+
+                error.innerHTML = t("err_fill_all");
+
+                card.classList.remove("success");
+
+                card.classList.add("shake");
+
+                setTimeout(() => {
+
+                    card.classList.remove("shake");
+
+                }, 500);
+
+                return;
+
+            }
+
+            error.style.color = "#16A34A";
+
+            error.innerHTML = t("success_login");
 
             card.classList.remove("shake");
 
