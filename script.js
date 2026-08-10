@@ -139,6 +139,138 @@ function hideLoader() {
     document.getElementById("loader").classList.add("hidden");
 
 }
+let currentActiveResult = null;
+
+function renderResultCard(student, semester, name) {
+    const resultDiv = document.getElementById("result");
+    const subjects = semesters[semester];
+    const marks = student[semester];
+
+    let total = 0;
+    let failed = false;
+    let rows = "";
+
+    subjects.forEach(subject => {
+        const mark = marks[subject];
+        const grade = getGrade(mark);
+
+        if (mark < 40) failed = true;
+
+        total += mark;
+
+        rows += `
+            <tr>
+                <td>${subject}</td>
+                <td>${mark}</td>
+                <td>
+                    <span class="grade ${getGradeClass(grade)}">${grade}</span>
+                </td>
+            </tr>
+        `;
+    });
+
+    const percentage = (total / subjects.length).toFixed(2);
+    const cgpa = calculateCGPA(percentage);
+    const grade = overallGrade(percentage);
+    const statusText = failed ? t("status_fail") : t("status_pass");
+    const statusClass = failed ? "fail" : "pass";
+    const semText = t(semester === "sem1" ? "sem_1" : "sem_2");
+
+    resultDiv.innerHTML = `
+    <div class="result-card">
+
+        <div class="student-header">
+
+            <div class="avatar">${name.charAt(0).toUpperCase()}</div>
+
+            <div class="student-info">
+
+                <h2>${name}</h2>
+
+                <p>${t("roll_no_prefix")} : ${student.roll}</p>
+
+                <p>${semText}</p>
+
+            </div>
+
+        </div>
+
+        <div class="summary">
+
+            <div class="summary-box">
+
+                <h4>${t("summary_total")}</h4>
+
+                <span>${total}</span>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h4>${t("summary_percentage")}</h4>
+
+                <span>${percentage}%</span>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h4>${t("summary_cgpa")}</h4>
+
+                <span>${cgpa}</span>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h4>${t("summary_grade")}</h4>
+
+                <span>${grade}</span>
+
+            </div>
+
+        </div>
+
+        <table class="result-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>${t("th_subject")}</th>
+
+                    <th>${t("th_marks")}</th>
+
+                    <th>${t("th_grade")}</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${rows}
+
+            </tbody>
+
+        </table>
+
+        <div style="padding:25px;text-align:center">
+
+            <span class="status ${statusClass}">${statusText}</span>
+
+        </div>
+
+    </div>
+    `;
+}
+
+window.refreshCurrentResult = function () {
+    if (currentActiveResult) {
+        renderResultCard(currentActiveResult.student, currentActiveResult.semester, currentActiveResult.name);
+    }
+};
+
 function checkResult() {
 
     const name = document.getElementById("nameInput").value.trim();
@@ -151,9 +283,10 @@ function checkResult() {
 
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">Please enter your name.</h3>
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_enter_name")}</h3>
             </div>
         `;
+        currentActiveResult = null;
         return;
     }
 
@@ -161,9 +294,10 @@ function checkResult() {
 
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">Please enter your roll number.</h3>
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_enter_roll")}</h3>
             </div>
         `;
+        currentActiveResult = null;
         return;
     }
 
@@ -171,9 +305,10 @@ function checkResult() {
 
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">Invalid Roll Number</h3>
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_invalid_roll")}</h3>
             </div>
         `;
+        currentActiveResult = null;
         return;
     }
 
@@ -182,9 +317,10 @@ function checkResult() {
     if (!namePattern.test(name)) {
         resultDiv.innerHTML = `
             <div class="result-card">
-                <h3 style="color:red;">Please enter a valid student name.</h3>
+                <h3 style="color:red; padding: 20px; text-align: center;">${t("err_valid_name")}</h3>
             </div>
         `;
+        currentActiveResult = null;
         return;
     }
 
@@ -197,134 +333,8 @@ function checkResult() {
         hideLoader();
 
         const student = students[roll];
-
-        const subjects = semesters[semester];
-
-        const marks = student[semester];
-
-        let total = 0;
-        let failed = false;
-        let rows = "";
-
-        subjects.forEach(subject => {
-
-            const mark = marks[subject];
-
-            const grade = getGrade(mark);
-
-            if (mark < 40) failed = true;
-
-            total += mark;
-
-            rows += `
-                <tr>
-                    <td>${subject}</td>
-                    <td>${mark}</td>
-                    <td>
-                        <span class="grade ${getGradeClass(grade)}">${grade}</span>
-                    </td>
-                </tr>
-            `;
-
-        });
-
-        const percentage = (total / subjects.length).toFixed(2);
-
-        const cgpa = calculateCGPA(percentage);
-
-        const grade = overallGrade(percentage);
-
-        const status = failed ? "FAIL" : "PASS";
-
-        const statusClass = failed ? "fail" : "pass";
-
-        resultDiv.innerHTML = `
-        <div class="result-card">
-
-            <div class="student-header">
-
-                <div class="avatar">${name.charAt(0).toUpperCase()}</div>
-
-                <div class="student-info">
-
-                    <h2>${name}</h2>
-
-                    <p>Roll Number : ${roll}</p>
-
-                    <p>${semester.toUpperCase()}</p>
-
-                </div>
-
-            </div>
-
-            <div class="summary">
-
-                <div class="summary-box">
-
-                    <h4>Total</h4>
-
-                    <span>${total}</span>
-
-                </div>
-
-                <div class="summary-box">
-
-                    <h4>Percentage</h4>
-
-                    <span>${percentage}%</span>
-
-                </div>
-
-                <div class="summary-box">
-
-                    <h4>CGPA</h4>
-
-                    <span>${cgpa}</span>
-
-                </div>
-
-                <div class="summary-box">
-
-                    <h4>Grade</h4>
-
-                    <span>${grade}</span>
-
-                </div>
-
-            </div>
-
-            <table class="result-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Subject</th>
-
-                        <th>Marks</th>
-
-                        <th>Grade</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    ${rows}
-
-                </tbody>
-
-            </table>
-
-            <div style="padding:25px;text-align:center">
-
-                <span class="status ${statusClass}">${status}</span>
-
-            </div>
-
-        </div>
-        `;
+        currentActiveResult = { student, semester, name };
+        renderResultCard(student, semester, name);
 
     }, 800);
 
